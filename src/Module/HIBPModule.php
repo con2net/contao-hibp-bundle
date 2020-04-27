@@ -1,6 +1,8 @@
 <?php
 namespace con2net\ContaoHIBPBundle\Module;
 
+use Icawebdesign\Hibp\Breach\Breach;
+
 class HIBPModule extends \Module
 {
     /**
@@ -35,7 +37,21 @@ class HIBPModule extends \Module
      */
     protected function compile()
     {
-        $this->Template->message = 'Hallo Welt';
+         if (\Contao\Input::post('FORM_SUBMIT') == 'HIBPFORM') {
+            $email_address = strval(\Contao\Input::post('email'));
+            $breach = new Breach($this->APIKey);
+            $data = $breach->getBreachedAccount($email_address);
+            $breaches = $data->map(function ($item) {
+                return [
+                    'name'=>$item->getName(),
+                    'domain'=>$item->getDomain(),
+                    'date'=>$item->getBreachDate()->format('d.m.Y'),
+                    'description'=>$item->getDescription()
+                ];
+            })->toArray();
+
+            $this->Template->breaches = $breaches;
+        }
 
     }
 }

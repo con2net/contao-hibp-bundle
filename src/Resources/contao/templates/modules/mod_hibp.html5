@@ -3,5 +3,61 @@
 <?php $this->block('content'); ?>
 
 <?= $this->message; ?>
+<br>
+
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+    <?php if ($this->headline): ?>
+    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+
+
+<!-- FORMULAR -->
+<div class="formcontainer">
+    <form action="" method="post">
+        <input type="hidden" name="FORM_SUBMIT" value="HIBPFORM">
+        <input type="hidden" name="REQUEST_TOKEN" value="<?php echo REQUEST_TOKEN; ?>">
+
+        <div class="formrow">
+            <label for="email">E-Mail-Adresse: </label>
+            <input type="text" name="email" id="email" value="<?php echo $this->email; ?>">
+        </div>
+
+        <input type="submit" value="Absenden">
+    </form>
+</div>
+
+
+<!-- AUSGABE -->
+    <div class="result">
+        <?php if(count($this->breaches) == 0): ?>
+            <div class="noPwnedSites">
+                <?php echo $this->txtNotPwned; ?>
+            </div>
+        <?php endif; ?>
+            <div class="pwnedSites">
+                <span>Ooops, Ihre E-Mail-Adresse <?php echo $this->email; ?> wurde in <?php echo count($this->breaches); ?>Sites gefunden!</span>
+                <div class="pwnedResults">
+                <?php foreach ($this->breaches as $breach): ?>
+                    <div class="container">
+                        <div class="row">
+                            <div class="pwnedResultLeft">
+                                <p><?php echo $breach['name']; ?></p>
+                                <p><?php echo $breach['domain']; ?></p>
+                                <p><?php echo $breach['date']; ?></p>
+                            </div>
+                            <div class="pwnedResultRight">
+                                <p><?php echo $breach['description']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+                </div>
+                <div class="PwnedSites">
+                    <?php echo $this->txtPwned; ?>
+                </div>
+            </div>
+    </div>
+
 
 <?php $this->endblock(); ?>
