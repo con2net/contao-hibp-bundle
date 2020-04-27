@@ -1,0 +1,55 @@
+{
+    "name": "con2net/contao-hibp-bundle",
+    "type": "contao-bundle",
+    "description": "Check E-Mail-Address based on the Have I Been Pwned API. (Contao Open Source CMS)",
+    "homepage": "https://contao.org",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "connect2Net webServices",
+            "email": "info@connect2net.de",
+            "role": "Developer",
+            "homepage": "https://github.com/con2net"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "contao/core-bundle": ">=4.4",
+        "symfony/framework-bundle": ">=3.3",
+        "icawebdesign/hibp-php": "^4.2",
+        "con2net/contao-hibp-bundle": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/con2net/contao-hibp-bundle.git"
+        }
+    ],
+    "conflict": {
+        "contao/core": "*",
+        "contao/manager-plugin": "<2.0 || >=3.0"
+    },
+    "require-dev": {
+        "contao/manager-plugin": "^2.0",
+        "doctrine/doctrine-cache-bundle": "^1.3",
+        "friendsofphp/php-cs-fixer": "^2.12",
+        "php-http/guzzle6-adapter": "^1.1",
+        "php-http/message-factory": "^1.0.2",
+        "phpunit/phpunit": "^5.7.26",
+        "symfony/phpunit-bridge": "^3.2"
+    },
+    "extra": {
+        "contao-manager-plugin": "con2net\\ContaoHIBPBundle\\ContaoManager\\Plugin"
+    },
+    "autoload": {
+        "psr-4": {
+            "con2net\\ContaoHIBPBundle\\": "src/"
+        }
+    },
+    "support": {
+        "email": "info@connect2net.de",
+        "issues": "https://github.com/con2net/contao-hibp-bundle/issues",
+        "source": "https://github.com/con2net/contao-hibp-bundle",
+        "homepage": "https://github.com/con2net/contao-hibp-bundle"
+    }
+}
