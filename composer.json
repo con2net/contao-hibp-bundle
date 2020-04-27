@@ -1,4 +1,4 @@
-{
+    {
     "name": "con2net/contao-hibp-bundle",
     "type": "contao-bundle",
     "description": "Check E-Mail-Address based on the Have I Been Pwned API. (Contao Open Source CMS)",

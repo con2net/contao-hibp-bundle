@@ -8,7 +8,7 @@
  * @license LGPL-3.0-or-later
  */
 
-namespace con2net\ContaoHelloWorldBundle\DependencyInjection;
+namespace con2net\ContaoHIBPBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
