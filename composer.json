@@ -49,7 +49,6 @@
     "support": {
         "email": "info@connect2net.de",
         "issues": "https://github.com/con2net/contao-hibp-bundle/issues",
-        "source": "https://github.com/con2net/contao-hibp-bundle",
-        "homepage": "https://github.com/con2net/contao-hibp-bundle"
+        "source": "https://github.com/con2net/contao-hibp-bundle"
     }
 }
