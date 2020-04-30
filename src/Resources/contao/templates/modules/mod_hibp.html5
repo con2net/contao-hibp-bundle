@@ -1,9 +1,5 @@
 <?php $this->extend('block_searchable'); ?>
-
 <?php $this->block('content'); ?>
-
-<?= $this->message; ?>
-<br>
 
 <div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
 
@@ -30,24 +26,25 @@
 
 <!-- AUSGABE -->
     <div class="result">
-        <?php if(count($this->breaches) == 0): ?>
+        <?php if(!$this->breachCheck): ?>
             <div class="noPwnedSites">
                 <?php echo $this->txtNotPwned; ?>
             </div>
         <?php endif; ?>
+        <?php if(count($this->breaches) > 0): ?>
             <div class="pwnedSites">
-                <span>Ooops, Ihre E-Mail-Adresse <?php echo $this->email; ?> wurde in <?php echo count($this->breaches); ?>Sites gefunden!</span>
+                <span>Oh Nein! Ihre E-Mail-Adresse <?php echo $this->email; ?> wurde in <?php echo count($this->breaches); ?> Sites gefunden!</span>
                 <div class="pwnedResults">
                 <?php foreach ($this->breaches as $breach): ?>
                     <div class="container">
                         <div class="row">
                             <div class="pwnedResultLeft">
-                                <p><?php echo $breach['name']; ?></p>
-                                <p><?php echo $breach['domain']; ?></p>
+                                <img class="pwnedLogo" src="<?php echo $breach['logo']; ?>" alt="<?php echo $breach['name']; ?> Logo">
                                 <p><?php echo $breach['date']; ?></p>
                             </div>
                             <div class="pwnedResultRight">
-                                <p><?php echo $breach['description']; ?></p>
+                                <p><span class="pwnedCompany"><?php echo $breach['name']; ?> (<?php echo $breach['domain']; ?>): </span><?php echo $breach['description']; ?></p>
+                                <p><span class="pwnedTypes">Compromised data: </span><?php echo implode(', ',$breach['types']->all()); ?></p>
                             </div>
                         </div>
                     </div>
@@ -57,7 +54,6 @@
                     <?php echo $this->txtPwned; ?>
                 </div>
             </div>
+        <?php endif; ?>
     </div>
-
-
 <?php $this->endblock(); ?>

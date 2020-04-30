@@ -2,6 +2,7 @@
 namespace con2net\ContaoHIBPBundle\Module;
 
 use Icawebdesign\Hibp\Breach\Breach;
+use Icawebdesign\Hibp\Exception\BreachNotFoundException;
 
 class HIBPModule extends \Module
 {
@@ -37,21 +38,28 @@ class HIBPModule extends \Module
      */
     protected function compile()
     {
-         if (\Contao\Input::post('FORM_SUBMIT') == 'HIBPFORM') {
+        $breachCheck = true;
+        if (\Contao\Input::post('FORM_SUBMIT') == 'HIBPFORM') {
             $email_address = strval(\Contao\Input::post('email'));
             $breach = new Breach($this->APIKey);
-            $data = $breach->getBreachedAccount($email_address);
-            $breaches = $data->map(function ($item) {
-                return [
-                    'name'=>$item->getName(),
-                    'domain'=>$item->getDomain(),
-                    'date'=>$item->getBreachDate()->format('d.m.Y'),
-                    'description'=>$item->getDescription()
-                ];
-            })->toArray();
-
-            $this->Template->breaches = $breaches;
+            try {
+                $data = $breach->getBreachedAccount($email_address);
+            } catch (\Icawebdesign\Hibp\Exception\BreachNotFoundException $e) {
+                //echo sprintf("E-Mail-Adresse wurde nicht gefunden!\n%s", $e->getMessage());
+                return false;
+            }
+             $breaches = $data->map(function ($item) {
+                 return [
+                     'name'=>$item->getName(),
+                     'domain'=>$item->getDomain(),
+                     'date'=>$item->getBreachDate()->format('d.m.Y'),
+                     'description'=>$item->getDescription(),
+                     'types'=>$item->getDataClasses(),
+                     'logo'=>$item->getLogoPath()
+                 ];
+             })->toArray();
+         }
+        $this->Template->breaches = $breaches;
+        $this->Template->breachCheck = $breachCheck;
         }
-
-    }
 }
