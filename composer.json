@@ -16,7 +16,7 @@
         "php": "^7.1 || ^8.0",
         "contao/core-bundle": ">=4.4",
         "symfony/framework-bundle": ">=3.3",
-        "icawebdesign/hibp-php": "^4.2"
+        "icawebdesign/hibp-php": "^5.2"
     },
     "conflict": {
         "contao/core": "*",
