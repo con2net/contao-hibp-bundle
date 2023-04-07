@@ -1,4 +1,4 @@
-# Have I Been Pwned für Contao 4
+# Have I Been Pwned (HIBP) für Contao 4
 
 Allows you to check an e-mail address against the databases of
 Have I Been Pwned (https://haveibeenpwned.com)
