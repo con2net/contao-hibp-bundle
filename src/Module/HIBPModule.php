@@ -3,6 +3,7 @@ namespace con2net\ContaoHIBPBundle\Module;
 
 use Icawebdesign\Hibp\Breach\Breach;
 use Icawebdesign\Hibp\Exception\BreachNotFoundException;
+use Icawebdesign\Hibp\HibpHttp;
 
 class HIBPModule extends \Module
 {
@@ -41,7 +42,7 @@ class HIBPModule extends \Module
         $breachCheck = true;
         if (\Contao\Input::post('FORM_SUBMIT') == 'HIBPFORM') {
             $email_address = strval(\Contao\Input::post('email'));
-            $breach = new Breach($this->APIKey);
+            $breach = new Breach(new HibpHttp($this->APIKey));
             try {
                 $data = $breach->getBreachedAccount($email_address);
             } catch (\Icawebdesign\Hibp\Exception\BreachNotFoundException $e) {
